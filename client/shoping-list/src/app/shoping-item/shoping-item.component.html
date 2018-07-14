@@ -1,0 +1,56 @@
+<p>
+  shoping-item works!
+</p>
+
+<form #frm="ngForm" (ngSubmit)="addItem(frm)"  *ngIf="!toogle"> 
+  <h2>add item</h2>
+  <div class="form-group">
+    <label for=''>
+      Name
+    </label>
+    <input type="text" class="form-control " name="itemName" value="" ngModel required>
+  </div>
+  <div class="form-group">
+    <label for=''>
+      Quantity
+    </label>
+    <input type="number" class="form-control " name="itemQuantity" value="" ngModel required >
+  </div>
+  <button type="submit" class="btn btn-success"   [disabled]=frm.invalid> ADD Item </button>
+</form>
+
+<form #editForm="ngForm" (ngSubmit)="EditItem(editForm)" *ngIf="toogle">  
+    <h2>Edit item</h2>
+    <div class="form-group">
+      <label for=''>
+        Name
+      </label>
+      <input type="text" class="form-control " name="itemName" value="" [ngModel]="selectedItem.itemName">
+    </div>
+    <div class="form-group">
+      <label for=''>
+        Quantity
+      </label>
+      <input type="number" class="form-control " name="itemQuantity" value="" [ngModel]="selectedItem.itemQuantity">
+    </div>
+    <button type="submit" class="btn btn-success"> Save Item </button>
+  </form>
+
+<br>
+<br>
+<table class="table">
+  <td> Name </td>
+  <td> Quantity </td>
+  <td> Edit </td>
+  <td> Delete </td>
+  <tr *ngFor="let fruit of shopingItems">
+    <td>{{fruit.itemName}}</td>
+    <td>{{fruit.itemQuantity}}</td>
+    <td>
+      <button class="btn btn-primary " (click)="Edit(fruit)"  [disabled]='toogle'> Edit</button>
+    </td>
+    <td>
+      <button class="btn btn-danger" (click)="delete(fruit._id)"> Delete</button>
+    </td>
+  </tr>
+</table>
